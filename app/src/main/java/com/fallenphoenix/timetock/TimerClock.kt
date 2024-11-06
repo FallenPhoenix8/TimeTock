@@ -28,6 +28,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.constraintlayout.compose.Arc
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.fallenphoenix.timetock.ui.theme.TimeTockTheme
 import kotlinx.coroutines.delay
 import java.util.Locale
@@ -48,7 +50,7 @@ fun getFormattedTimeRemaining(seconds: Int): String {
 }
 
 @Composable
-fun TimerClock(seconds: Int) {
+fun TimerClock(seconds: Int, navHostController: NavHostController) {
     var isRunning by remember { mutableStateOf(true) }
     var remainingSeconds by remember { mutableStateOf(seconds) }
 
@@ -57,7 +59,11 @@ fun TimerClock(seconds: Int) {
         while (isRunning && remainingSeconds > 0) {
             remainingSeconds -= 1
             delay(1000)
+            if (remainingSeconds == 0) {
+                navHostController.navigate(StopPlayingRoute)
+            }
         }
+
     }
 
     // Display remaining time
@@ -124,12 +130,9 @@ fun TimerClock(seconds: Int) {
 @Composable
 fun PreviewTimerClock() {
     TimeTockTheme {
-        TimerClock(seconds = 10)
+        TimerClock(seconds = 10, rememberNavController())
     }
 
 }
 
-@Composable
-fun TimeTockTheme(content: @Composable () -> Unit) {
 
-}
