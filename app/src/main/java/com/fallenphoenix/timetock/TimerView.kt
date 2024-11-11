@@ -24,9 +24,6 @@ import androidx.navigation.compose.rememberNavController
 fun TimerView(navHostController: NavHostController) {
     // Defining state variables
     val viewModel = remember { TimeModel() }
-//    val seconds by viewModel.seconds.collectAsState()
-//    val minutes by viewModel.minutes.collectAsState()
-//    val hours by viewModel.hours.collectAsState()
 
     // TimerView GUI
     Column(

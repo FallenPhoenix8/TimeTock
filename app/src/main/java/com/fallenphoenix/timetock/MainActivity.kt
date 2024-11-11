@@ -33,14 +33,14 @@ class MainActivity : ComponentActivity() {
         setContent {
             TimeTockTheme {
                 val navController = rememberNavController()
-                var selectedIndex = remember { mutableIntStateOf(0) }
+                val selectedIndex = remember { mutableIntStateOf(0) }
                 val navigationBarItems = listOf(
                     NavigationBarItemModel("StopWatch", Icons.AutoMirrored.Filled.ArrowBack) {
-                        selectedIndex.value = 0
+                        selectedIndex.intValue = 0
                         navController.navigate(StopWatchRoute)
                     },
                     NavigationBarItemModel("Timer", Icons.AutoMirrored.Filled.ArrowForward) {
-                        selectedIndex.value = 1
+                        selectedIndex.intValue = 1
                         navController.navigate(TimerRoute)
                     }
                 )
@@ -52,7 +52,7 @@ class MainActivity : ComponentActivity() {
                     composable<StopWatchRoute> {
                         MainScreen(
                             navigationBarItems,
-                            selectedIndex = selectedIndex.value
+                            selectedIndex = selectedIndex.intValue
                         ) {
                             StopWatchView()
                         }
@@ -62,7 +62,7 @@ class MainActivity : ComponentActivity() {
                         val args = it.toRoute<TimerClockRoute>()
                         MainScreen(
                             navigationBarItems,
-                            selectedIndex = selectedIndex.value
+                            selectedIndex = selectedIndex.intValue
                         ) {
                             TimerClock(args.seconds, navController)
                         }
@@ -71,7 +71,7 @@ class MainActivity : ComponentActivity() {
                     composable<TimerRoute> {
                         MainScreen(
                             navigationBarItems,
-                            selectedIndex = selectedIndex.value
+                            selectedIndex = selectedIndex.intValue
                         ) {
                             TimerView(navController)
                         }
@@ -80,7 +80,7 @@ class MainActivity : ComponentActivity() {
                     composable<StopPlayingRoute> {
                         MainScreen(
                             navigationBarItems,
-                            selectedIndex = selectedIndex.value
+                            selectedIndex = selectedIndex.intValue
                         ) {
                             StopPlayingView(navController)
                         }
