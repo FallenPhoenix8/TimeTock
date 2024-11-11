@@ -101,7 +101,7 @@ fun TimerClock(seconds: Int, navHostController: NavHostController) {
             PrimaryButton(
                 label = "Delete",
                 onClick = {
-                    // TODO: Implement delete functionality
+                    navHostController.navigate(TimerRoute)
                 }
             )
 

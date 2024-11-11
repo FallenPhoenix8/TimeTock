@@ -29,11 +29,14 @@ import kotlinx.serialization.Serializable
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Using default config of system bars
         enableEdgeToEdge()
         setContent {
             TimeTockTheme {
                 val navController = rememberNavController()
                 val selectedIndex = remember { mutableIntStateOf(0) }
+
+                // Creating a list of items that will be displayed in bottom bar
                 val navigationBarItems = listOf(
                     NavigationBarItemModel("StopWatch", Icons.AutoMirrored.Filled.ArrowBack) {
                         selectedIndex.intValue = 0
@@ -45,10 +48,15 @@ class MainActivity : ComponentActivity() {
                     }
                 )
 
+                // Setting up navigation
                 NavHost(
                     navController = navController,
                     startDestination = StopWatchRoute
                 ) {
+                    /*
+                    * Initial route,
+                    * displays stopwatch
+                    */
                     composable<StopWatchRoute> {
                         MainScreen(
                             navigationBarItems,
@@ -58,6 +66,9 @@ class MainActivity : ComponentActivity() {
                         }
                     }
 
+                    /*
+                    * Displays time countdown in timer
+                     */
                     composable<TimerClockRoute> {
                         val args = it.toRoute<TimerClockRoute>()
                         MainScreen(
@@ -68,6 +79,9 @@ class MainActivity : ComponentActivity() {
                         }
                     }
 
+                    /*
+                    * Displays timer for choosing time for countdown
+                     */
                     composable<TimerRoute> {
                         MainScreen(
                             navigationBarItems,
@@ -77,6 +91,9 @@ class MainActivity : ComponentActivity() {
                         }
                     }
 
+                    /*
+                    * Keeps playing a sound until button in the middle is clicked
+                     */
                     composable<StopPlayingRoute> {
                         MainScreen(
                             navigationBarItems,
@@ -93,6 +110,9 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+/*
+* Main screen template
+ */
 @Composable
 fun MainScreen(
     navigationBarItems: List<NavigationBarItemModel>,

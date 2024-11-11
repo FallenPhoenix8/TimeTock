@@ -63,7 +63,9 @@ fun TimerView(navHostController: NavHostController) {
         }
 
         PrimaryButton(onClick = {
-            navHostController.navigate(TimerClockRoute(seconds = viewModel.getFullTimeSeconds()))
+            if(viewModel.getFullTimeSeconds() > 0) {
+                navHostController.navigate(TimerClockRoute(seconds = viewModel.getFullTimeSeconds()))
+            }
         }, "Start")
 
     }
